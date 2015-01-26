@@ -1,0 +1,14 @@
+{
+  "name": "haskell-pointfree",
+  "main": "./lib/haskell-pointfree",
+  "version": "0.0.0",
+  "description": "Convert selection to pointfree or pointful representation",
+  "repository": "https://github.com/lierdakil/atom-haskell-pointfree",
+  "license": "MIT",
+  "engines": {
+    "atom": ">0.50.0"
+  },
+  "dependencies": {
+    "atom-space-pen-views": "*"
+  }
+}
