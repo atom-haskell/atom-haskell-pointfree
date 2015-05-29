@@ -1,11 +1,8 @@
 {CompositeDisposable} = require 'atom'
-CP = require 'child_process'
-# _ = require 'underscore-plus'
-{SelectListView, $, $$} = require 'atom-space-pen-views'
+HaskellPointfreeView = require './haskell-pointfree-view'
 
-module.exports =
-class HaskellPointfreeView extends SelectListView
-  @config:
+module.exports = HaskellPointfree =
+  config:
     pointfreePath:
       type: 'string'
       default: 'pointfree'
@@ -15,64 +12,15 @@ class HaskellPointfreeView extends SelectListView
       default: 'pointful'
       description: 'Path to pointful executable'
 
-  @activate: ->
+  activate: ->
     @subscriptions = new CompositeDisposable
     view = new HaskellPointfreeView
     # Register command that toggles this view
-    @subscriptions.add atom.commands.add 'atom-text-editor',
+    @subscriptions.add atom.commands.add(
+      'atom-text-editor[data-grammar~="haskell"]',
       'haskell-pointfree:toggle': ->
         view.toggle(event.target.getModel())
-  @deactivate: ->
+      )
+  deactivate: ->
     @subscriptions.dispose()
-
-  runCmd: (path,text,title) ->
-    new Promise (resolve) ->
-      CP.execFile path, [text], {}, (error,data) ->
-        unless error
-          resolve
-            text: data.trim()
-            title: title
-
-  initialize: ->
-    super
-
-    @addClass('haskell-pointfree')
-
-  cancelled: -> @hide()
-
-  toggle: (editor) ->
-    if @panel?.isVisible()
-      @cancel()
-    else
-      @show(editor)
-
-  getFilterKey: ->
-    "text"
-
-  show: (editor) ->
-    pfree=atom.config.get('haskell-pointfree.pointfreePath')
-    pful=atom.config.get('haskell-pointfree.pointfulPath')
-    range = editor.getSelectedBufferRange()
-    text=editor.getTextInBufferRange(range)
-    p=Promise.all [
-      @runCmd(pfree,text,"Pointfree"),
-      @runCmd(pful,text,"Pointful")]
-    p.then (list) =>
-      list.forEach (item) ->
-        item.range=range
-        item.editor=editor
-      @setItems(list)
-      @panel ?= atom.workspace.addModalPanel(item: this)
-      @panel.show()
-      @storeFocusedElement()
-      @focusFilterEditor()
-
-  hide: ->
-    @panel?.hide()
-
-  viewForItem: ({title,text}) ->
-    "<li>#{title}: #{text}</li>"
-
-  confirmed: ({text,range,editor}) ->
-    @cancel()
-    editor.setTextInBufferRange range, text
+    @subscriptions = null
