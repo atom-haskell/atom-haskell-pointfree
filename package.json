@@ -3,6 +3,13 @@
   "main": "./lib/haskell-pointfree",
   "version": "0.1.3",
   "description": "Convert selection to pointfree or pointful representation",
+  "keywords": [
+    "ide-haskell",
+    "ide",
+    "haskell",
+    "pointfree",
+    "pointful"
+  ],
   "repository": "https://github.com/atom-haskell/atom-haskell-pointfree",
   "license": "MIT",
   "engines": {
