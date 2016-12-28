@@ -17,10 +17,10 @@ module.exports = HaskellPointfree =
     view = null
     # Register command that toggles this view
     @subscriptions.add atom.commands.add 'atom-text-editor[data-grammar~="haskell"]',
-      'haskell-pointfree:toggle': ({target}) ->
+      'haskell-pointfree:toggle': ({currentTarget}) ->
         HaskellPointfreeView ?= require './haskell-pointfree-view'
         view ?= new HaskellPointfreeView
-        view.toggle(target.getModel())
+        view.toggle(currentTarget.getModel())
   deactivate: ->
     @subscriptions.dispose()
     @subscriptions = null
