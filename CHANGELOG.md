@@ -1,3 +1,9 @@
+## 0.1.4
+* s/target/currentTarget/
+* Fix LICENSE date
+* Update LICENSE
+* Add package keywords
+
 ## 0.1.3
 * Defer require until needed
 
