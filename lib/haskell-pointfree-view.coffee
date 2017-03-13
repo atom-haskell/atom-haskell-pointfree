@@ -1,13 +1,19 @@
-{BufferedProcess} = require 'atom'
+{BufferedProcess, BufferedNodeProcess} = require 'atom'
 {SelectListView} = require 'atom-space-pen-views'
 
 module.exports=
 class HaskellPointfreeView extends SelectListView
-  runCmd: (path,text,title) ->
+  runCmd: (cmd,text,title) ->
     lines = []
+    if cmd in ['pointfree.js', 'pointful.js']
+      {sep} = require 'path'
+      cmd = "#{__dirname}#{sep}..#{sep}bin#{sep}#{cmd}"
+      BP = BufferedNodeProcess
+    else
+      BP = BufferedProcess
     new Promise (resolve) ->
-      new BufferedProcess
-        command: path
+      new BP
+        command: cmd
         args: [text]
         stdout: (line) ->
           lines.push line.slice(0,-1)

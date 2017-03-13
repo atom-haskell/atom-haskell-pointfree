@@ -2,11 +2,11 @@ module.exports = HaskellPointfree =
   config:
     pointfreePath:
       type: 'string'
-      default: 'pointfree'
+      default: 'pointfree.js'
       description: 'Path to pointfree executable'
     pointfulPath:
       type: 'string'
-      default: 'pointful'
+      default: 'pointful.js'
       description: 'Path to pointful executable'
 
   activate: ->
