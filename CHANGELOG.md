@@ -1,3 +1,6 @@
+## 0.2.0
+* Added ghcjs-compiled binaries
+
 ## 0.1.4
 * s/target/currentTarget/
 * Fix LICENSE date
