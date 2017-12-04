@@ -1,4 +1,4 @@
-# haskell-pointfree package
+# haskell-pointfree package ![](https://david-dm.org/atom-haskell/haskell-pointfree.svg)
 
 This extremely simple utility calls pointfree and pointful
 with current selection and shows their output, allowing you to
